@@ -3,6 +3,8 @@ from rest_framework.response import Response
 
 import time
 
+from rest_framework.permissions import IsAuthenticated
+
 """ 
 from django.contrib.auth.models import User
 
@@ -18,6 +20,8 @@ class ExampleView(APIView):
         return Response(content)
  """
 class Register(APIView):
+
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
         self.stdout.write('['+time.ctime()+'] Data recieved: ' + request.data)
