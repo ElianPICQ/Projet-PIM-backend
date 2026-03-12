@@ -40,6 +40,7 @@ class Login(APIView):
             return Response({
                 "success": "true",
                 "message": "Login success",
+                "user": UserSerializer(user).data,
                 "access": str(refresh.access_token),
                 "refresh": str(refresh),
             })
