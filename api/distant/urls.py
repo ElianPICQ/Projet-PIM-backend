@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('product/', views.Product.as_view()),
+    path('products/', views.RedirectionListeDeProduits.as_view()),
+    path('product/<int:pk>/', views.RedirectionDetailProduit.as_view()),
 ]
