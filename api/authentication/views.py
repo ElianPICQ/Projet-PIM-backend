@@ -40,6 +40,7 @@ class Login(APIView):
             return Response({
                 "success": "true",
                 "message": "Login success",
+                "user": UserSerializer(user).data,
                 "access": str(refresh.access_token),
                 "refresh": str(refresh),
             })
@@ -65,3 +66,32 @@ class Logout(APIView):
                 "success": "false",
                 "message": f"Logout failed: {str(e)}"
             }, status=status.HTTP_400_BAD_REQUEST)
+        
+class ResetPassword(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, request, format=None):
+        user = request.user
+        password = request.data.get("password")
+        new_password = request.data.get("newPassword")
+        new_password_confirmation = request.data.get("newPasswordConfirmation")
+
+        if not user.check_password(password):
+            return Response({
+                "success": "false",
+                "message": "Current password is incorrect"
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        if new_password != new_password_confirmation:
+            return Response({
+                "success": "false",
+                "message": "New passwords do not match"
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(new_password)
+        user.save()
+
+        return Response({
+            "success": "true",
+            "message": "Password updated successfully"
+        }, status=status.HTTP_200_OK)
