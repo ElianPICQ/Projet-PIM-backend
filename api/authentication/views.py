@@ -32,7 +32,7 @@ class Login(APIView):
         try:
             user = User.objects.get(username=request.data["username"])
         except User.DoesNotExist:
-            return Response({"success": "false", "message": "Login failed 1: Wrong credentials"})
+            return Response({"success": "false", "message": "Login failed 1: Wrong credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
         if user and user.check_password(request.data["password"]):
             refresh = RefreshToken.for_user(user)
@@ -45,7 +45,7 @@ class Login(APIView):
                 "refresh": str(refresh),
             })
         
-        return Response({"success": "false", "message": "Login failed 2: Wrong credentials"})
+        return Response({"success": "false", "message": "Login failed 2: Wrong credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
 class Logout(APIView):
     permission_classes = (IsAuthenticated,)
