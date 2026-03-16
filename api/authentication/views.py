@@ -36,7 +36,7 @@ class Login(APIView):
 
         if user and user.check_password(request.data["password"]):
             refresh = RefreshToken.for_user(user)
-#            refresh["username"] = user.username
+            refresh["username"] = user.username
             return Response({
                 "success": "true",
                 "message": "Login success",
@@ -67,14 +67,14 @@ class Logout(APIView):
                 "message": f"Logout failed: {str(e)}"
             }, status=status.HTTP_400_BAD_REQUEST)
         
-class ResetPassword(APIView):
+class ChangePassword(APIView):
     permission_classes = (IsAuthenticated, )
 
     def post(self, request, format=None):
         user = request.user
-        password = request.data.get("password")
-        new_password = request.data.get("newPassword")
-        new_password_confirmation = request.data.get("newPasswordConfirmation")
+        password = request.data.get("oldpassword")
+        new_password = request.data.get("newpassword")
+        new_password_confirmation = request.data.get("confirmpassword")
 
         if not user.check_password(password):
             return Response({
