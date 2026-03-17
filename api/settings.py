@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #'api.authentication',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'api.distant',
 ]
 
 MIDDLEWARE = [
