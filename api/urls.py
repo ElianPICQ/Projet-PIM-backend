@@ -30,4 +30,5 @@ urlpatterns = [
     
     path('authentication/', include("api.authentication.urls")),
     path('distant/', include("api.distant.urls")),
+    path('stock/', include("api.stock.urls")),
 ]
