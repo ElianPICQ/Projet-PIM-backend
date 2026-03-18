@@ -22,14 +22,13 @@ class RedirectionDetailProduit(APIView):
         except:
             raise Http404
 
-@api_view(['GET', 'POST'])
-def transactions(request):
-    if request.method == 'GET':
+class RedirectionTransactions(APIView):
+    def get(self, request, format=None):
         all_transactions = Transaction.objects.all().order_by('-date')
         serializer = TransactionSerializer(all_transactions, many=True)
         return Response(serializer.data)
-
-    if request.method == 'POST':
+    
+    def post(self, request, format=None):
         serializer = TransactionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

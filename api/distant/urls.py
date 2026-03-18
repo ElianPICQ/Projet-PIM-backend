@@ -4,5 +4,5 @@ from . import views
 urlpatterns = [
     path('products/', views.RedirectionListeDeProduits.as_view()),
     path('product/<int:pk>/', views.RedirectionDetailProduit.as_view()),
-    path('transactions/', views.transactions),
+    path('transactions/', views.RedirectionTransactions.as_view()),
 ]
