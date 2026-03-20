@@ -7,13 +7,13 @@ from .models import Transaction
 from .serializers import TransactionSerializer
 
 class RedirectionListeDeProduits(APIView):
-    def get(self, request, format=None):
+    def get(self, format=None):
         response = requests.get(baseUrl+'products/')
         jsondata = response.json()
         return Response(jsondata)
 
 class RedirectionDetailProduit(APIView):
-    def get(self, request, pk, format=None):
+    def get(self, pk, format=None):
         try:
             response = requests.get(baseUrl+'product/'+str(pk)+'/')
             jsondata = response.json()
@@ -22,7 +22,7 @@ class RedirectionDetailProduit(APIView):
             raise Http404
 
 class RedirectionTransactions(APIView):
-    def get(self, request, format=None):
+    def get(self, format=None):
         all_transactions = Transaction.objects.all().order_by('-date')
         serializer = TransactionSerializer(all_transactions, many=True)
         return Response(serializer.data)

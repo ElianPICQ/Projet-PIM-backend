@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
-
+""" 
 class Register(APIView):
 
     def post(self, request, format=None):
@@ -25,7 +25,7 @@ class Register(APIView):
             }, status=status.HTTP_201_CREATED)
         
         return Response({"success": "false", "message": "Register failed", "errors": user.errors}, status=status.HTTP_400_BAD_REQUEST)
-
+ """
 class Login(APIView):
 
     def post(self, request, format=None):
