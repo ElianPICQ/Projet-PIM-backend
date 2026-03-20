@@ -10,6 +10,9 @@ class RedirectionListeDeProduits(APIView):
     def get(self, format=None):
         response = requests.get(baseUrl+'products/')
         jsondata = response.json()
+        for product in jsondata:
+            if 'owner' in product:
+                product['supplier'] = product.pop('owner')
         return Response(jsondata)
 
 class RedirectionDetailProduit(APIView):
